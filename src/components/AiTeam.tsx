@@ -66,14 +66,16 @@ const AiTeam: React.FC<AiTeamProps> = ({ className = "" }) => {
         InstaBids AI Agent - Empowering local businesses
       </p>
 
-      <style>{`
+      <style>
+        {`
         .ai-agent {
           transform: translateY(0);
         }
         .ai-agent.active {
           transform: translateY(-5px);
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };

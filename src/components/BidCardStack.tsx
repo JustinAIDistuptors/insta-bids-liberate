@@ -29,7 +29,6 @@ const cards: BidCard[] = [
   },
   {
     id: 3,
-    // Updated with the deck installation image
     image: "https://images.unsplash.com/photo-1716904519810-349244919824?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Deck Installation",
     description: "New 400 sq ft composite deck with railing",
@@ -38,7 +37,6 @@ const cards: BidCard[] = [
   },
   {
     id: 4,
-    // Updated with the roof replacement image
     image: "https://images.unsplash.com/photo-1654783864154-cd3ed0e141e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Roof Replacement",
     description: "Full roof replacement for 2,200 sq ft home",
@@ -47,7 +45,6 @@ const cards: BidCard[] = [
   },
   {
     id: 5,
-    // Updated with the exterior painting image
     image: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Exterior Painting",
     description: "Full exterior home painting with premium paint",
@@ -75,21 +72,25 @@ const BidCardStack = () => {
   }, []);
 
   useEffect(() => {
-    // Apply visual effects to cards based on their position relative to active card
+    // Apply enhanced visual effects for the staggered card stack appearance
     cardRefs.current.forEach((card, index) => {
       if (card) {
         const diff = getPositionDiff(index, activeCardIndex, cards.length);
         
-        // Transform properties based on position
-        const translateY = diff * -10;
-        const translateZ = diff * -20;
-        const opacity = diff === 0 ? 1 : Math.max(0.5 - Math.abs(diff) * 0.1, 0.2);
-        const scale = 1 - Math.abs(diff) * 0.05;
+        // Enhanced transform properties for more visual separation
+        const translateY = diff * -20; // Increased vertical separation
+        const translateX = diff * 8; // Add slight horizontal shift
+        const translateZ = diff * -40; // Enhanced depth
+        const rotateZ = diff * -2; // Slight rotation for more dynamic appearance
+        const opacity = diff === 0 ? 1 : Math.max(0.7 - Math.abs(diff) * 0.15, 0.3);
+        const scale = 1 - Math.abs(diff) * 0.08;
         
         card.style.transform = `
-          perspective(1000px)
+          perspective(1200px)
           translateY(${translateY}px)
+          translateX(${translateX}px)
           translateZ(${translateZ}px)
+          rotateZ(${rotateZ}deg)
           scale(${scale})
         `;
         card.style.opacity = String(opacity);
@@ -107,16 +108,16 @@ const BidCardStack = () => {
   };
 
   return (
-    <div className="card-stack relative w-full max-w-md h-[400px] mx-auto">
+    <div className="card-stack relative w-full max-w-md h-[450px] mx-auto">
       {cards.map((card, index) => (
         <div
           key={card.id}
           ref={(el) => (cardRefs.current[index] = el)}
-          className="absolute top-0 left-0 w-full bg-gradient-to-br from-instabids-darkBlue to-instabids-darker border border-instabids-teal/30 rounded-xl overflow-hidden shadow-xl transition-all duration-500"
+          className="absolute top-0 left-0 w-full bg-gradient-to-br from-instabids-darkBlue to-instabids-darker border border-instabids-teal/30 rounded-xl overflow-hidden shadow-xl transition-all duration-700"
           style={{
-            transform: `translateY(${index * -10}px) translateZ(${index * -20}px)`,
+            transform: `translateY(${index * -20}px) translateX(${index * 8}px) translateZ(${index * -40}px) rotateZ(${index * -2}deg)`,
             zIndex: cards.length - index,
-            opacity: index === 0 ? 1 : Math.max(0.8 - index * 0.1, 0.5),
+            opacity: index === 0 ? 1 : Math.max(0.7 - index * 0.15, 0.3),
           }}
         >
           <div className="relative h-44">

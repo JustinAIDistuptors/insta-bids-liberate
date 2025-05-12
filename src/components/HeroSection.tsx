@@ -4,6 +4,7 @@ import Button from "./Button";
 import BidCardStack from "./BidCardStack";
 import TypingText from "./TypingText";
 import AiTeam from "./AiTeam";
+import RobotLogo from "./RobotLogo";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -37,9 +38,11 @@ const HeroSection = () => {
       <div className="section-container relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
-            <h1 className="mb-2">
+            <h1 className="mb-2 flex items-center justify-center md:justify-start">
               <span className="bg-gradient-to-r from-instabids-teal to-instabids-turquoise inline-block text-transparent bg-clip-text">Insta</span>
               <span className="text-white">Bids</span>
+              <span className="text-white mx-0.5">.</span>
+              <RobotLogo size={32} className="mt-1" />
             </h1>
             
             <div className="h-12 mb-4">

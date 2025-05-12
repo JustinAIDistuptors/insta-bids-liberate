@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Button from "./Button";
+import RobotLogo from "./RobotLogo";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,8 +33,11 @@ const Navbar = () => {
       )}
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
-        <a href="#" className="text-white font-heading text-2xl font-bold">
-          <span className="text-instabids-teal">Insta</span>Bids
+        <a href="#" className="text-white font-heading text-2xl font-bold flex items-center">
+          <span className="text-instabids-teal">Insta</span>
+          <span className="text-white">Bids</span>
+          <span className="text-white mx-0.5">.</span>
+          <RobotLogo size={20} className="mt-1" />
         </a>
 
         {/* Desktop Menu */}

@@ -40,7 +40,7 @@ const ProblemSection = () => {
             Strangled Small Business
           </h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg md:text-xl text-instabids-lightGray leading-relaxed">
+            <p className="text-lg md:text-xl text-white leading-relaxed">
               Today's reality: starting a contracting business requires mastering
               marketing skills that even business school graduates struggle
               with—let alone skilled tradespeople who excel at their craft.
@@ -49,7 +49,7 @@ const ProblemSection = () => {
               <p className="text-2xl md:text-3xl font-bold text-red-400 mb-3">
                 Corporations have extracted $375 billion
               </p>
-              <p className="text-lg text-instabids-lightGray">
+              <p className="text-lg text-white">
                 last year from local economies to simply connect buyers and sellers
               </p>
             </div>
@@ -82,8 +82,8 @@ const ProblemSection = () => {
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                   </svg>
                 </div>
-                <h4 className="font-heading text-xl mb-2">Local Communities</h4>
-                <p className="text-instabids-gray">
+                <h4 className="font-heading text-xl mb-2 text-white">Local Communities</h4>
+                <p className="text-white">
                   Homeowners pay higher prices
                 </p>
               </div>
@@ -105,10 +105,10 @@ const ProblemSection = () => {
                     />
                   </svg>
                   <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 text-center w-[200px]">
-                    <p className="text-xl md:text-2xl font-bold text-red-400">
+                    <p className="text-2xl md:text-3xl font-bold text-red-400">
                       $300-$3,000 per job
                     </p>
-                    <p className="text-sm text-instabids-lightGray">
+                    <p className="text-sm text-white">
                       The average cost contractors pay to simply meet a neighbor
                     </p>
                     <p className="text-sm font-bold text-instabids-teal mt-1">
@@ -137,8 +137,8 @@ const ProblemSection = () => {
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                   </svg>
                 </div>
-                <h4 className="font-heading text-xl mb-2">Corporate Platforms</h4>
-                <p className="text-instabids-gray">
+                <h4 className="font-heading text-xl mb-2 text-white">Corporate Platforms</h4>
+                <p className="text-white">
                   Extracting wealth from communities
                 </p>
               </div>
@@ -148,25 +148,25 @@ const ProblemSection = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">90%</p>
-                <p className="text-instabids-gray text-sm">
+                <p className="text-white text-sm">
                   Corporate Fee Extraction
                 </p>
               </div>
               <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">$3K</p>
-                <p className="text-instabids-gray text-sm">
+                <p className="text-white text-sm">
                   Max Customer Acquisition Cost
                 </p>
               </div>
               <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">10-20%</p>
-                <p className="text-instabids-gray text-sm">
+                <p className="text-white text-sm">
                   Price Inflation for Homeowners
                 </p>
               </div>
               <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">0%</p>
-                <p className="text-instabids-gray text-sm">
+                <p className="text-white text-sm">
                   Value Added by Middlemen
                 </p>
               </div>

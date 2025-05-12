@@ -69,7 +69,7 @@ const PainPointsSection = () => {
                       <path d="m6 6 12 12" />
                     </svg>
                   </div>
-                  <span className="text-instabids-lightGray">{point}</span>
+                  <span className="text-white">{point}</span>
                 </li>
               ))}
             </ul>
@@ -95,9 +95,9 @@ const PainPointsSection = () => {
                     <circle cx="7" cy="7" r="3" />
                   </svg>
                 </div>
-                <h4 className="font-heading text-lg">Contractor Testimony</h4>
+                <h4 className="font-heading text-lg text-white">Contractor Testimony</h4>
               </div>
-              <p className="italic text-instabids-lightGray">
+              <p className="italic text-white">
                 "I spent over $2,000 on leads last month and only converted one
                 job. These platforms take advantage of small businesses like
                 mine, but I can't compete without them."
@@ -142,7 +142,7 @@ const PainPointsSection = () => {
                       <path d="m6 6 12 12" />
                     </svg>
                   </div>
-                  <span className="text-instabids-lightGray">{point}</span>
+                  <span className="text-white">{point}</span>
                 </li>
               ))}
             </ul>
@@ -166,9 +166,9 @@ const PainPointsSection = () => {
                     <polyline points="9 22 9 12 15 12 15 22" />
                   </svg>
                 </div>
-                <h4 className="font-heading text-lg">Homeowner Testimony</h4>
+                <h4 className="font-heading text-lg text-white">Homeowner Testimony</h4>
               </div>
-              <p className="italic text-instabids-lightGray">
+              <p className="italic text-white">
                 "After requesting a quote online, I received over 20 calls in
                 three days. Half the contractors seemed unprofessional, and the
                 pricing was all over the place. It felt like a scam."

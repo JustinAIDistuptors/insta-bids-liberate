@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import BidCardStack from "./BidCardStack";
 import TypingText from "./TypingText";
-import AiRobot from "./AiRobot";
+import AiTeam from "./AiTeam";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -38,7 +38,8 @@ const HeroSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
             <h1 className="mb-2">
-              <span className="text-gradient">InstaBids</span>
+              <span className="bg-gradient-to-r from-instabids-teal to-instabids-turquoise inline-block text-transparent bg-clip-text">Insta</span>
+              <span className="text-white">Bids</span>
             </h1>
             
             <div className="h-12 mb-4">
@@ -54,7 +55,7 @@ const HeroSection = () => {
               />
             </div>
             
-            <p className="text-xl md:text-2xl text-instabids-lightGray mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-white mb-8 leading-relaxed">
               Cutting out corporate middlemen and returning the American Dream to
               local communities
             </p>
@@ -66,9 +67,9 @@ const HeroSection = () => {
             </div>
 
             <div className="mt-8 flex items-center justify-center md:justify-start">
-              <AiRobot className="w-12 h-12 mr-3" />
-              <p className="text-sm text-instabids-lightGray">
-                InstaBids AI - Empowering local businesses
+              <AiTeam className="mr-3" />
+              <p className="text-sm text-white">
+                InstaBids AI Team - Empowering local businesses
               </p>
             </div>
           </div>
@@ -84,7 +85,7 @@ const HeroSection = () => {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-          <span className="text-instabids-lightGray text-sm mb-2">Scroll to discover</span>
+          <span className="text-white text-sm mb-2">Scroll to discover</span>
           <svg
             width="24"
             height="24"

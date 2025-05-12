@@ -56,7 +56,7 @@ const TypingText: React.FC<TypingTextProps> = ({
 
   return (
     <div className="inline-block">
-      <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-instabids-lightGray">
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white">
         {currentText}
         <span className="animate-pulse">|</span>
       </h2>

@@ -1,7 +1,8 @@
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const GroupBiddingSection = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -29,141 +30,136 @@ const GroupBiddingSection = () => {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-instabids-darkBlue to-instabids-dark py-20">
+    <section id="group-bidding" className="bg-gradient-to-b from-instabids-darkBlue to-instabids-dark py-20 relative overflow-hidden">
       <div className="section-container">
         <div
           ref={(el) => (elementsRef.current[0] = el)}
           className="animate-on-scroll text-center mb-12"
         >
-          <h2 className="mb-6">
-            Leveraging <span className="text-gradient">Group Bidding</span> Technology
-          </h2>
-          <p className="text-lg text-instabids-lightGray max-w-3xl mx-auto">
-            InstaBids allows homeowners to leverage grouping their jobs together, enabling contractors to bid on clusters of local projects and drive costs down even more.
+          <h2 className="text-gradient mb-6">Group Bidding Revolution</h2>
+          <p className="text-white text-lg md:text-xl max-w-3xl mx-auto">
+            Homeowners can now leverage collective buying power by grouping similar jobs together,
+            driving costs down through efficiency while contractors gain access to multiple projects at once.
           </p>
         </div>
 
         <div
           ref={(el) => (elementsRef.current[1] = el)}
-          className="animate-on-scroll"
+          className="animate-on-scroll grid md:grid-cols-3 gap-8 mt-12"
         >
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="bg-instabids-darkBlue/50 border border-instabids-teal/30 rounded-xl p-6 shadow-lg hover:border-instabids-teal/70 transition-all">
-              <div className="w-16 h-16 rounded-full bg-instabids-teal/20 flex items-center justify-center mb-4 mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-instabids-teal"
-                >
-                  <path d="M3 3v18h18" />
-                  <path d="m19 9-5 5-4-4-3 3" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading mb-3 text-center">Reduced Costs</h3>
-              <p className="text-instabids-lightGray">
-                Group bidding reduces customer acquisition costs by 90%, allowing contractors to pass savings directly to homeowners.
-              </p>
+          <div className="bg-instabids-darkBlue/70 backdrop-blur p-6 rounded-lg border border-instabids-teal/20 shadow-lg">
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-instabids-dark/50 rounded-full border border-instabids-teal/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-instabids-teal"
+              >
+                <path d="M7 21h10" />
+                <rect x="1" y="3" width="22" height="14" rx="6" />
+                <circle cx="9" cy="10" r="2" />
+                <circle cx="15" cy="10" r="2" />
+              </svg>
             </div>
-
-            {/* Card 2 */}
-            <div className="bg-instabids-darkBlue/50 border border-instabids-teal/30 rounded-xl p-6 shadow-lg hover:border-instabids-teal/70 transition-all">
-              <div className="w-16 h-16 rounded-full bg-instabids-teal/20 flex items-center justify-center mb-4 mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-instabids-teal"
-                >
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading mb-3 text-center">Local Communities</h3>
-              <p className="text-instabids-lightGray">
-                Group bidding strengthens local economies by keeping dollars in the community and supporting small business growth.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-instabids-darkBlue/50 border border-instabids-teal/30 rounded-xl p-6 shadow-lg hover:border-instabids-teal/70 transition-all">
-              <div className="w-16 h-16 rounded-full bg-instabids-teal/20 flex items-center justify-center mb-4 mx-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-instabids-teal"
-                >
-                  <path d="M2 9h3v10h18V9h3" />
-                  <path d="m12 14 4-5" />
-                  <path d="m8 14 4-5" />
-                  <path d="M2 9V6c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v3" />
-                  <path d="M14 9V6c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v3" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading mb-3 text-center">Increased Efficiency</h3>
-              <p className="text-instabids-lightGray">
-                Contractors can bid on multiple local jobs at once, eliminating redundant sales meetings and increasing productivity.
-              </p>
-            </div>
+            <h3 className="text-xl font-semibold mb-3 text-white">Reduce Costs by 90%</h3>
+            <p className="text-white">
+              Cut customer acquisition costs dramatically by eliminating expensive middlemen and marketing campaigns
+            </p>
           </div>
 
-          <div 
-            ref={(el) => (elementsRef.current[2] = el)}
-            className="animate-on-scroll mt-16 max-w-4xl mx-auto bg-gradient-to-r from-instabids-darkBlue/70 to-instabids-dark border border-instabids-teal/20 rounded-xl p-8"
-          >
-            <h3 className="text-2xl font-heading mb-4 text-center">
-              Restarting the American Small Business Dream
-            </h3>
-            <ul className="space-y-4">
-              {[
-                "Reduce customer acquisition costs by 90%",
-                "Eliminate multiple sales meetings per project",
-                "Allow local contractors to bid on grouped jobs",
-                "Drive costs down to levels unmatched by any other solution"
-              ].map((item, index) => (
-                <li key={index} className="flex items-start">
-                  <div className="mr-3 mt-1 text-instabids-teal">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                  </div>
-                  <span className="text-lg text-instabids-lightGray">{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="bg-instabids-darkBlue/70 backdrop-blur p-6 rounded-lg border border-instabids-teal/20 shadow-lg">
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-instabids-dark/50 rounded-full border border-instabids-teal/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-instabids-teal"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3 text-white">Single Meeting Efficiency</h3>
+            <p className="text-white">
+              Eliminate multiple sales meetings per project with our streamlined bidding process
+            </p>
+          </div>
+
+          <div className="bg-instabids-darkBlue/70 backdrop-blur p-6 rounded-lg border border-instabids-teal/20 shadow-lg">
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-instabids-dark/50 rounded-full border border-instabids-teal/30">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-instabids-teal"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                <path d="M12 7v14" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3 text-white">Neighborhood Grouping</h3>
+            <p className="text-white">
+              Group similar local projects together, allowing contractors to bid on multiple jobs at once
+            </p>
+          </div>
+        </div>
+
+        <div
+          ref={(el) => (elementsRef.current[2] = el)}
+          className="animate-on-scroll mt-12"
+        >
+          <div className="bg-instabids-darkBlue/40 border border-instabids-teal/30 rounded-lg p-6 max-w-3xl mx-auto">
+            <h3 className="text-xl font-semibold mb-4 text-white text-center">How Group Bidding Works</h3>
+            
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-instabids-teal/20 border border-instabids-teal/40 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-instabids-teal font-bold text-xl">1</span>
+                </div>
+                <p className="text-white">Homeowners post similar projects in the same area</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-instabids-teal/20 border border-instabids-teal/40 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-instabids-teal font-bold text-xl">2</span>
+                </div>
+                <p className="text-white">InstaBids AI groups compatible projects together</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full bg-instabids-teal/20 border border-instabids-teal/40 flex items-center justify-center mx-auto mb-3">
+                  <span className="text-instabids-teal font-bold text-xl">3</span>
+                </div>
+                <p className="text-white">Contractors bid on multiple projects at once with volume discounts</p>
+              </div>
+            </div>
+            
+            <div className="mt-6 text-center">
+              <p className="text-instabids-teal font-semibold">
+                Restart the American small business dream by unlocking unprecedented efficiency
+              </p>
+            </div>
           </div>
         </div>
       </div>

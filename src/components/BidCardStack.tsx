@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface BidCard {
   id: number;
@@ -13,7 +13,7 @@ interface BidCard {
 const cards: BidCard[] = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Bathroom Renovation",
     description: "Complete master bathroom remodel with custom shower",
     location: "Austin, TX",
@@ -54,42 +54,54 @@ const cards: BidCard[] = [
 ];
 
 const BidCardStack = () => {
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      
-      // Calculate distance from center (normalized)
-      const moveX = (clientX - centerX) / centerX * 5;
-      const moveY = (clientY - centerY) / centerY * 5;
+    // Set up automatic cycling
+    intervalRef.current = setInterval(() => {
+      setActiveCardIndex((prevIndex) => (prevIndex + 1) % cards.length);
+    }, 4000);
 
-      // Apply different movements to each card to create depth
-      cardRefs.current.forEach((card, index) => {
-        if (card) {
-          const depth = 0.5 + (index * 0.15); // Reduced depth factor for tighter stack
-          const rotateY = moveX * depth;
-          const rotateX = -moveY * depth;
-          const translateZ = index * -8 - 5; // Reduced Z-distance for tighter stack
-          
-          card.style.transform = `
-            perspective(1000px)
-            rotateY(${rotateY}deg)
-            rotateX(${rotateX}deg)
-            translateZ(${translateZ}px)
-            translateY(${index * -10}px)
-          `;
-        }
-      });
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, []);
+
+  useEffect(() => {
+    // Apply visual effects to cards based on their position relative to active card
+    cardRefs.current.forEach((card, index) => {
+      if (card) {
+        const diff = getPositionDiff(index, activeCardIndex, cards.length);
+        
+        // Transform properties based on position
+        const translateY = diff * -10;
+        const translateZ = diff * -20;
+        const opacity = diff === 0 ? 1 : Math.max(0.5 - Math.abs(diff) * 0.1, 0.2);
+        const scale = 1 - Math.abs(diff) * 0.05;
+        
+        card.style.transform = `
+          perspective(1000px)
+          translateY(${translateY}px)
+          translateZ(${translateZ}px)
+          scale(${scale})
+        `;
+        card.style.opacity = String(opacity);
+        card.style.zIndex = String(cards.length - Math.abs(diff));
+      }
+    });
+  }, [activeCardIndex]);
+
+  // Calculate the position difference between two cards in a circular manner
+  const getPositionDiff = (index: number, activeIndex: number, total: number) => {
+    const diff = index - activeIndex;
+    if (diff > total / 2) return diff - total;
+    if (diff < -total / 2) return diff + total;
+    return diff;
+  };
 
   return (
     <div className="card-stack relative w-full max-w-md h-[400px] mx-auto">
@@ -97,12 +109,11 @@ const BidCardStack = () => {
         <div
           key={card.id}
           ref={(el) => (cardRefs.current[index] = el)}
-          className="absolute top-0 left-0 w-full bg-gradient-to-br from-instabids-darkBlue to-instabids-darker border border-instabids-teal/30 rounded-xl overflow-hidden shadow-xl transition-all duration-300"
+          className="absolute top-0 left-0 w-full bg-gradient-to-br from-instabids-darkBlue to-instabids-darker border border-instabids-teal/30 rounded-xl overflow-hidden shadow-xl transition-all duration-500"
           style={{
-            transform: `translateY(${index * -10}px) translateZ(${
-              index * -8 - 5
-            }px)`,
+            transform: `translateY(${index * -10}px) translateZ(${index * -20}px)`,
             zIndex: cards.length - index,
+            opacity: index === 0 ? 1 : Math.max(0.8 - index * 0.1, 0.5),
           }}
         >
           <div className="relative h-44">
@@ -115,9 +126,9 @@ const BidCardStack = () => {
           </div>
           <div className="p-4">
             <h4 className="font-heading text-xl mb-1">{card.title}</h4>
-            <p className="text-instabids-lightGray text-sm mb-3">{card.description}</p>
+            <p className="text-white text-sm mb-3">{card.description}</p>
             <div className="flex justify-between text-xs">
-              <span className="text-instabids-gray">{card.location}</span>
+              <span className="text-white">{card.location}</span>
               <span className="text-instabids-teal font-semibold">
                 {card.priceRange}
               </span>

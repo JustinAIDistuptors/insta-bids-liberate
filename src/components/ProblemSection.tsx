@@ -44,10 +44,15 @@ const ProblemSection = () => {
               Today's reality: starting a contracting business requires mastering
               marketing skills that even business school graduates struggle
               with—let alone skilled tradespeople who excel at their craft.
-              Customer acquisition costs of $300-$3,000 per job are silently
-              passed to homeowners, extracting wealth from local communities and
-              funneling it to corporate shareholders.
             </p>
+            <div className="mt-6 bg-instabids-darkBlue/50 border border-red-500/30 p-6 rounded-lg">
+              <p className="text-2xl md:text-3xl font-bold text-red-400 mb-3">
+                Corporations have extracted $375 billion
+              </p>
+              <p className="text-lg text-instabids-lightGray">
+                last year from local economies to simply connect buyers and sellers
+              </p>
+            </div>
           </div>
         </div>
 
@@ -99,9 +104,17 @@ const ProblemSection = () => {
                       className="animate-pulse"
                     />
                   </svg>
-                  <p className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-center text-sm text-instabids-lightGray">
-                    $300-$3,000 per job
-                  </p>
+                  <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 text-center w-[200px]">
+                    <p className="text-xl md:text-2xl font-bold text-red-400">
+                      $300-$3,000 per job
+                    </p>
+                    <p className="text-sm text-instabids-lightGray">
+                      The average cost contractors pay to simply meet a neighbor
+                    </p>
+                    <p className="text-sm font-bold text-instabids-teal mt-1">
+                      This ends today with you
+                    </p>
+                  </div>
                 </div>
               </div>
 

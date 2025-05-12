@@ -1,7 +1,9 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import BidCardStack from "./BidCardStack";
+import TypingText from "./TypingText";
+import AiRobot from "./AiRobot";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -35,10 +37,23 @@ const HeroSection = () => {
       <div className="section-container relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left">
-            <h1 className="mb-6">
-              <span className="text-gradient">InstaBids:</span> Unleashing the
-              American Economy
+            <h1 className="mb-2">
+              <span className="text-gradient">InstaBids</span>
             </h1>
+            
+            <div className="h-12 mb-4">
+              <TypingText 
+                phrases={[
+                  "Unleashing the American Economy",
+                  "Leveraging the latest AI agents",
+                  "Saving local economies $400 billion"
+                ]} 
+                typingSpeed={50}
+                deletingSpeed={30}
+                delayBetweenPhrases={2000}
+              />
+            </div>
+            
             <p className="text-xl md:text-2xl text-instabids-lightGray mb-8 leading-relaxed">
               Cutting out corporate middlemen and returning the American Dream to
               local communities
@@ -48,6 +63,13 @@ const HeroSection = () => {
               <Button variant="outline" size="lg">
                 Learn More
               </Button>
+            </div>
+
+            <div className="mt-8 flex items-center justify-center md:justify-start">
+              <AiRobot className="w-12 h-12 mr-3" />
+              <p className="text-sm text-instabids-lightGray">
+                InstaBids AI - Empowering local businesses
+              </p>
             </div>
           </div>
           <div className="hidden md:block">

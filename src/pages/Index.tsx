@@ -5,6 +5,7 @@ import HeroSection from "../components/HeroSection";
 import ProblemSection from "../components/ProblemSection";
 import PainPointsSection from "../components/PainPointsSection";
 import MissionSection from "../components/MissionSection";
+import GroupBiddingSection from "../components/GroupBiddingSection";
 import HowItWorksSection from "../components/HowItWorksSection";
 import BenefitsSection from "../components/BenefitsSection";
 import CtaSection from "../components/CtaSection";
@@ -44,6 +45,7 @@ const Index = () => {
       <HeroSection />
       <ProblemSection />
       <PainPointsSection />
+      <GroupBiddingSection />
       <MissionSection />
       <HowItWorksSection />
       <BenefitsSection />

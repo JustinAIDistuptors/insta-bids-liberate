@@ -69,16 +69,17 @@ const BidCardStack = () => {
       // Apply different movements to each card to create depth
       cardRefs.current.forEach((card, index) => {
         if (card) {
-          const depth = 0.5 + (index * 0.25); // Increasing depth factor for cards further back
+          const depth = 0.5 + (index * 0.15); // Reduced depth factor for tighter stack
           const rotateY = moveX * depth;
           const rotateX = -moveY * depth;
-          const translateZ = index * -15 - 10; // Stack the cards with increasing depth
+          const translateZ = index * -8 - 5; // Reduced Z-distance for tighter stack
           
           card.style.transform = `
             perspective(1000px)
             rotateY(${rotateY}deg)
             rotateX(${rotateX}deg)
             translateZ(${translateZ}px)
+            translateY(${index * -10}px)
           `;
         }
       });
@@ -91,15 +92,15 @@ const BidCardStack = () => {
   }, []);
 
   return (
-    <div className="card-stack relative w-full max-w-md h-96 mx-auto">
+    <div className="card-stack relative w-full max-w-md h-[400px] mx-auto">
       {cards.map((card, index) => (
         <div
           key={card.id}
           ref={(el) => (cardRefs.current[index] = el)}
           className="absolute top-0 left-0 w-full bg-gradient-to-br from-instabids-darkBlue to-instabids-darker border border-instabids-teal/30 rounded-xl overflow-hidden shadow-xl transition-all duration-300"
           style={{
-            transform: `translateY(${index * -15}px) translateZ(${
-              index * -15 - 10
+            transform: `translateY(${index * -10}px) translateZ(${
+              index * -8 - 5
             }px)`,
             zIndex: cards.length - index,
           }}

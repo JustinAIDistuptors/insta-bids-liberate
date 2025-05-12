@@ -78,7 +78,7 @@ const AiTeam: React.FC<AiTeamProps> = ({ className = "" }) => {
         </div>
       ))}
 
-      <style jsx>{`
+      <style>{`
         .ai-agent {
           transform: translateY(0);
         }

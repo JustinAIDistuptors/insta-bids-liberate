@@ -19,6 +19,20 @@ const TypingText: React.FC<TypingTextProps> = ({
   const [isTyping, setIsTyping] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Function to highlight the last word with teal color
+  const highlightLastWord = (text: string) => {
+    const words = text.split(" ");
+    if (words.length <= 1) return text;
+    
+    const lastWord = words.pop();
+    return (
+      <>
+        {words.join(" ")}{" "}
+        <span className="text-instabids-teal">{lastWord}</span>
+      </>
+    );
+  };
+
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
@@ -57,7 +71,7 @@ const TypingText: React.FC<TypingTextProps> = ({
   return (
     <div className="inline-block">
       <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white">
-        {currentText}
+        {highlightLastWord(currentText)}
         <span className="animate-pulse">|</span>
       </h2>
     </div>

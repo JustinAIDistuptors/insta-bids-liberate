@@ -16,16 +16,19 @@ const Index = () => {
     // Set page title
     document.title = "InstaBids: Unleashing the American Economy";
     
-    // Add animation observer
+    // Add animation observer with better threshold and smoother animation
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            // Add a small delay to create a staggered effect when multiple elements appear
+            setTimeout(() => {
+              entry.target.classList.add("is-visible");
+            }, 150);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15, rootMargin: "0px 0px -100px 0px" }
     );
 
     document.querySelectorAll(".animate-on-scroll").forEach((el) => {

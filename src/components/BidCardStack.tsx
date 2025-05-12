@@ -29,7 +29,8 @@ const cards: BidCard[] = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1591588582259-ae5657eeef82?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    // Updated with the deck installation image
+    image: "https://images.unsplash.com/photo-1716904519810-349244919824?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Deck Installation",
     description: "New 400 sq ft composite deck with railing",
     location: "Charlotte, NC",
@@ -37,7 +38,8 @@ const cards: BidCard[] = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    // Updated with the roof replacement image
+    image: "https://images.unsplash.com/photo-1654783864154-cd3ed0e141e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Roof Replacement",
     description: "Full roof replacement for 2,200 sq ft home",
     location: "Portland, OR",
@@ -45,7 +47,8 @@ const cards: BidCard[] = [
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1562684750-0553aea78845?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    // Updated with the exterior painting image
+    image: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     title: "Exterior Painting",
     description: "Full exterior home painting with premium paint",
     location: "Tampa, FL",

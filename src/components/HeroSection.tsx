@@ -47,7 +47,7 @@ const HeroSection = () => {
                 phrases={[
                   "Unleashing the American Economy",
                   "Leveraging the latest AI agents",
-                  "Saving local economies $400 billion"
+                  "Saving local economies $375 billion"
                 ]} 
                 typingSpeed={50}
                 deletingSpeed={30}
@@ -68,9 +68,6 @@ const HeroSection = () => {
 
             <div className="mt-8 flex items-center justify-center md:justify-start">
               <AiTeam className="mr-3" />
-              <p className="text-sm text-white">
-                InstaBids AI Team - Empowering local businesses
-              </p>
             </div>
           </div>
           <div className="hidden md:block">

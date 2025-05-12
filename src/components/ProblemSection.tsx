@@ -33,7 +33,7 @@ const ProblemSection = () => {
       <div className="section-container">
         <div
           ref={(el) => (elementsRef.current[0] = el)}
-          className="animate-on-scroll text-center mb-16"
+          className="animate-on-scroll text-center mb-16 opacity-0 transform translate-y-4"
         >
           <h2 className="mb-6">
             <span className="text-gradient">Corporate America</span> Has
@@ -58,13 +58,13 @@ const ProblemSection = () => {
 
         <div
           ref={(el) => (elementsRef.current[1] = el)}
-          className="animate-on-scroll"
+          className="animate-on-scroll opacity-0 transform translate-y-4"
         >
           <div className="relative max-w-4xl mx-auto">
             {/* Money Flow Diagram */}
             <div className="grid md:grid-cols-3 gap-6 items-center">
               {/* Local Community */}
-              <div className="bg-instabids-darkBlue/70 rounded-lg p-6 text-center border border-instabids-teal/20">
+              <div className="bg-instabids-darkBlue/70 rounded-lg p-6 text-center border border-instabids-teal/20 transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center bg-instabids-dark/50 rounded-full border border-instabids-teal/30">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +119,7 @@ const ProblemSection = () => {
               </div>
 
               {/* Corporate Platforms */}
-              <div className="bg-instabids-darkBlue/70 rounded-lg p-6 text-center border border-red-500/30">
+              <div className="bg-instabids-darkBlue/70 rounded-lg p-6 text-center border border-red-500/30 transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center bg-instabids-dark/50 rounded-full border border-red-500/30">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -146,25 +146,25 @@ const ProblemSection = () => {
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
+              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">90%</p>
                 <p className="text-white text-sm">
-                  Corporate Fee Extraction
+                  Reducing Customer Acquisition Cost
                 </p>
               </div>
-              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
+              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">$3K</p>
                 <p className="text-white text-sm">
                   Max Customer Acquisition Cost
                 </p>
               </div>
-              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
+              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">10-20%</p>
                 <p className="text-white text-sm">
                   Price Inflation for Homeowners
                 </p>
               </div>
-              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center">
+              <div className="bg-instabids-darkBlue/40 border border-instabids-teal/20 p-4 rounded-lg text-center transition-transform duration-300 hover:transform hover:-translate-y-2">
                 <p className="text-4xl font-bold text-instabids-teal mb-2">0%</p>
                 <p className="text-white text-sm">
                   Value Added by Middlemen

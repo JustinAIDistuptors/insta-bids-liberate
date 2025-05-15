@@ -28,44 +28,50 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-white/90 backdrop-blur-lg py-3 shadow-lg"
+          ? "bg-instabids-darker/90 backdrop-blur-lg py-3 shadow-lg"
           : "bg-transparent py-5"
       )}
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
-        <a href="#" className="text-instabids-dark font-heading text-2xl font-bold flex items-center">
+        <a href="#" className="text-white font-heading text-2xl font-bold flex items-center">
           <span className="text-instabids-teal">Insta</span>
-          <span className="text-instabids-dark">Bids</span>
-          <span className="mx-0.5">.</span>
-          <RobotLogo size={20} className="mt-1 animate-bounce-slow" />
+          <span className="text-white">Bids</span>
+          <span className="text-white mx-0.5">.</span>
+          <RobotLogo size={20} className="mt-1" />
         </a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           <a
-            href="#mission"
-            className="text-instabids-dark/80 hover:text-instabids-teal transition-colors"
+            href="#problem"
+            className="text-white/80 hover:text-white transition-colors"
           >
-            Our Mission
+            The Problem
+          </a>
+          <a
+            href="#mission"
+            className="text-white/80 hover:text-white transition-colors"
+          >
+            Our Promise
           </a>
           <a
             href="#how-it-works"
-            className="text-instabids-dark/80 hover:text-instabids-teal transition-colors"
+            className="text-white/80 hover:text-white transition-colors"
           >
             How It Works
           </a>
           <a
             href="#benefits"
-            className="text-instabids-dark/80 hover:text-instabids-teal transition-colors"
+            className="text-white/80 hover:text-white transition-colors"
           >
             Benefits
           </a>
-          <Button>Get Started</Button>
+          <Button>Join Now</Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-instabids-dark"
+          className="md:hidden text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
@@ -104,30 +110,37 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-lg">
+        <div className="md:hidden bg-instabids-darker/95 backdrop-blur-lg">
           <div className="container px-4 mx-auto py-4 flex flex-col space-y-4">
             <a
-              href="#mission"
-              className="text-instabids-dark/80 hover:text-instabids-teal transition-colors py-2"
+              href="#problem"
+              className="text-white/80 hover:text-white transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Our Mission
+              The Problem
+            </a>
+            <a
+              href="#mission"
+              className="text-white/80 hover:text-white transition-colors py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Our Promise
             </a>
             <a
               href="#how-it-works"
-              className="text-instabids-dark/80 hover:text-instabids-teal transition-colors py-2"
+              className="text-white/80 hover:text-white transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               How It Works
             </a>
             <a
               href="#benefits"
-              className="text-instabids-dark/80 hover:text-instabids-teal transition-colors py-2"
+              className="text-white/80 hover:text-white transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Benefits
             </a>
-            <Button fullWidth>Get Started</Button>
+            <Button fullWidth>Join Now</Button>
           </div>
         </div>
       )}

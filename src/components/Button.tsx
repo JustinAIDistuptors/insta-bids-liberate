@@ -19,11 +19,11 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-instabids-teal focus:ring-offset-2 focus:ring-offset-instabids-dark disabled:opacity-50 disabled:pointer-events-none",
+        "inline-flex items-center justify-center rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-instabids-teal focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:pointer-events-none hover:transform hover:-translate-y-1",
         {
-          "bg-gradient-to-r from-instabids-teal to-instabids-turquoise text-white hover:brightness-110":
+          "bg-gradient-to-r from-instabids-teal to-instabids-turquoise text-white hover:shadow-lg hover:shadow-instabids-teal/20":
             variant === "primary",
-          "bg-instabids-darkBlue text-white hover:bg-instabids-darkBlue/80":
+          "bg-instabids-darkBlue text-white hover:bg-instabids-darkBlue/80 hover:shadow-lg":
             variant === "secondary",
           "bg-transparent border border-instabids-teal text-instabids-teal hover:bg-instabids-teal/10":
             variant === "outline",

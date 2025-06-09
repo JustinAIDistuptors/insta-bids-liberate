@@ -1,5 +1,5 @@
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import BidCardStack from "./BidCardStack";
 import TypingText from "./TypingText";
@@ -8,6 +8,7 @@ import RobotLogo from "./RobotLogo";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,9 +64,11 @@ const HeroSection = () => {
               local communities
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Button size="lg">Join the Revolution</Button>
-              <Button variant="outline" size="lg">
-                Learn More
+              <Button size="lg" onClick={() => navigate('/sales-bot')}>
+                Try Sales Assistant
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => navigate('/agents-made-easy')}>
+                Build AI Agents
               </Button>
             </div>
 

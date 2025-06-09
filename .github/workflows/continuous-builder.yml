@@ -1,0 +1,122 @@
+name: Continuous Website Builder
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Number of pages to build'
+        required: false
+        default: '50'
+      service:
+        description: 'Specific service to build (optional)'
+        required: false
+        default: ''
+      location:
+        description: 'Specific location to build (optional)'
+        required: false
+        default: ''
+
+jobs:
+  check-queue:
+    runs-on: ubuntu-latest
+    outputs:
+      has_jobs: ${{ steps.check.outputs.has_jobs }}
+      stats: ${{ steps.check.outputs.stats }}
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Check Queue Status
+        id: check
+        run: |
+          STATS=$(node agents/orchestrator/check-queue.js)
+          echo "stats=$STATS" >> $GITHUB_OUTPUT
+          
+          # Check if there are pending jobs
+          PENDING=$(echo $STATS | jq -r '.pending')
+          if [ "$PENDING" -gt 0 ]; then
+            echo "has_jobs=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_jobs=false" >> $GITHUB_OUTPUT
+          fi
+
+  process-batch:
+    needs: check-queue
+    if: needs.check-queue.outputs.has_jobs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Process Batch
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SERP_API_KEY: ${{ secrets.SERP_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node agents/orchestrator/process-batch.js \
+            --size=${{ github.event.inputs.batch_size || 50 }} \
+            --service=${{ github.event.inputs.service }} \
+            --location=${{ github.event.inputs.location }}
+            
+      - name: Commit Changes
+        run: |
+          git config --local user.email "bot@instabids.ai"
+          git config --local user.name "InstaBids Builder Bot"
+          git add .
+          git diff --staged --quiet || git commit -m "Add batch of websites - $(date +'%Y-%m-%d %H:%M')"
+          git push
+          
+      - name: Update Dashboard
+        run: |
+          node agents/monitoring/update-dashboard.js
+          
+      - name: Trigger Next Run
+        if: needs.check-queue.outputs.has_jobs == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'continuous-builder.yml',
+              ref: 'main'
+            })
+
+  update-monitoring:
+    needs: process-batch
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Generate Stats
+        run: |
+          node agents/monitoring/generate-stats.js > dashboard/stats.json
+          
+      - name: Commit Dashboard Updates
+        run: |
+          git config --local user.email "bot@instabids.ai"
+          git config --local user.name "InstaBids Builder Bot"
+          git add dashboard/
+          git diff --staged --quiet || git commit -m "Update dashboard stats"
+          git push

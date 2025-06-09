@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useCopilotAction, useCopilotReadable, CopilotKit, CopilotChat } from "@copilotkit/react-ui";
+import { CopilotKit, useCopilotAction, useCopilotReadable } from "@copilotkit/react-core";
+import { CopilotChat } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";

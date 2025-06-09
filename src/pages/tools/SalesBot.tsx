@@ -77,7 +77,9 @@ const SalesBot = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
+        mode: "cors",
         body: JSON.stringify({
           message: userMessage,
           thread_id: threadId,
@@ -85,7 +87,8 @@ const SalesBot = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get response");
+        console.error("API Error:", response.status, response.statusText);
+        throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
@@ -96,7 +99,7 @@ const SalesBot = () => {
       console.error("Error sending message:", error);
       setMessages(prev => [...prev, { 
         role: "assistant", 
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment." 
+        content: "I'm having trouble connecting to the sales bot API. This might be a CORS issue. Please check the console for details." 
       }]);
     } finally {
       setIsLoading(false);

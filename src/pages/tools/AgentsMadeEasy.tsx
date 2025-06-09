@@ -1,9 +1,52 @@
 import React, { useState } from 'react';
-import { CopilotKit } from "@copilotkit/react-core";
-import { CopilotChat } from "@copilotkit/react-ui";
-import { useCopilotAction, useCopilotReadable } from "@copilotkit/react-core";
+import { useCopilotAction, useCopilotReadable, CopilotKit, CopilotChat } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
 import '../../../styles/globals.css';
+
+// Use your existing agent backend
+const AGENT_API_URL = import.meta.env.VITE_SALES_BOT_API_URL || 'https://instabids-sales-bot-api-67gkc.ondigitalocean.app';
+
+// Custom adapter that connects to your existing backend
+const customAdapter = {
+  process: async (messages: any[], actions: any[]) => {
+    try {
+      const lastMessage = messages[messages.length - 1];
+      
+      const response = await fetch(`${AGENT_API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: lastMessage.content,
+          thread_id: 'agents-made-easy-' + Date.now(),
+          context: {
+            mode: 'agents-made-easy',
+            actions: actions,
+            fullConversation: messages
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Agent API responded with ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      return {
+        content: data.response,
+        actions: data.actions || []
+      };
+    } catch (error) {
+      console.error('Error connecting to agent:', error);
+      return {
+        content: "I'm having trouble connecting to the AI service. Please try again.",
+        actions: []
+      };
+    }
+  }
+};
 
 const AgentsMadeEasy: React.FC = () => {
   const [showChat, setShowChat] = useState(false);
@@ -11,65 +54,8 @@ const AgentsMadeEasy: React.FC = () => {
   const [painPoints, setPainPoints] = useState<any[]>([]);
   const [proposedSystem, setProposedSystem] = useState<any>(null);
 
-  // Make state readable by the AI
-  useCopilotReadable({
-    description: "Current business information collected",
-    value: businessInfo
-  });
-
-  useCopilotReadable({
-    description: "Discovered pain points and opportunities",
-    value: painPoints
-  });
-
-  // Actions the AI can use to update the UI
-  useCopilotAction({
-    name: "updateBusinessInfo",
-    description: "Update the business information as discovered in conversation",
-    parameters: [
-      {
-        name: "info",
-        type: "object",
-        description: "Business details like industry, size, current challenges"
-      }
-    ],
-    handler: ({ info }) => {
-      setBusinessInfo(prev => ({ ...prev, ...info }));
-    }
-  });
-
-  useCopilotAction({
-    name: "addPainPoint",
-    description: "Add a discovered pain point or opportunity",
-    parameters: [
-      {
-        name: "painPoint",
-        type: "object",
-        description: "Pain point with title, description, and impact level"
-      }
-    ],
-    handler: ({ painPoint }) => {
-      setPainPoints(prev => [...prev, painPoint]);
-    }
-  });
-
-  useCopilotAction({
-    name: "proposeAgentSystem",
-    description: "Propose a complete agent system based on discovered needs",
-    parameters: [
-      {
-        name: "system",
-        type: "object",
-        description: "Complete agent system proposal with agents, connections, and benefits"
-      }
-    ],
-    handler: ({ system }) => {
-      setProposedSystem(system);
-    }
-  });
-
   return (
-    <CopilotKit runtimeUrl="/api/copilot/agents-made-easy">
+    <CopilotKit adapter={customAdapter}>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-8">
@@ -187,24 +173,11 @@ const AgentsMadeEasy: React.FC = () => {
 
                 {/* Right Side - Chat Interface */}
                 <div className="lg:sticky lg:top-8">
-                  <div className="bg-white/95 backdrop-blur-md overflow-hidden rounded-xl shadow-2xl">
-                    <CopilotChat
-                      className="h-[600px]"
-                      instructions={`You are an AI consultant for Instabids' "Agents Made Easy" service. Your goal is to:
-                      
-                      1. Start by understanding their business (use updateBusinessInfo action)
-                      2. Discover specific pain points through conversation (use addPainPoint for each one)
-                      3. After understanding 3-4 pain points, propose a complete agent system (use proposeAgentSystem)
-                      
-                      Be consultative and thorough. Ask follow-up questions. Focus on ROI and practical implementation.
-                      
-                      Start with: "Hi! I'm your AI transformation consultant. Let's design a custom AI agent system for your business. What industry are you in?"`}
-                      labels={{
-                        title: "AI Transformation Consultant",
-                        initial: "Let's explore how AI agents can transform your business..."
-                      }}
-                    />
-                  </div>
+                  <InnerChat
+                    setBusinessInfo={setBusinessInfo}
+                    setPainPoints={setPainPoints}
+                    setProposedSystem={setProposedSystem}
+                  />
 
                   {/* CTA Button */}
                   {proposedSystem && (
@@ -224,6 +197,82 @@ const AgentsMadeEasy: React.FC = () => {
         </div>
       </div>
     </CopilotKit>
+  );
+};
+
+// Separate component for actions (must be inside CopilotKit)
+const InnerChat: React.FC<any> = ({ setBusinessInfo, setPainPoints, setProposedSystem }) => {
+  // Make state readable by the AI
+  useCopilotReadable({
+    description: "Current business information collected",
+    value: setBusinessInfo
+  });
+
+  // Actions the AI can use to update the UI
+  useCopilotAction({
+    name: "updateBusinessInfo",
+    description: "Update the business information as discovered in conversation",
+    parameters: [
+      {
+        name: "info",
+        type: "object",
+        description: "Business details like industry, size, current challenges"
+      }
+    ],
+    handler: ({ info }) => {
+      setBusinessInfo(prev => ({ ...prev, ...info }));
+    }
+  });
+
+  useCopilotAction({
+    name: "addPainPoint",
+    description: "Add a discovered pain point or opportunity",
+    parameters: [
+      {
+        name: "painPoint",
+        type: "object",
+        description: "Pain point with title, description, and impact level"
+      }
+    ],
+    handler: ({ painPoint }) => {
+      setPainPoints(prev => [...prev, painPoint]);
+    }
+  });
+
+  useCopilotAction({
+    name: "proposeAgentSystem",
+    description: "Propose a complete agent system based on discovered needs",
+    parameters: [
+      {
+        name: "system",
+        type: "object",
+        description: "Complete agent system proposal with agents, connections, and benefits"
+      }
+    ],
+    handler: ({ system }) => {
+      setProposedSystem(system);
+    }
+  });
+
+  return (
+    <div className="bg-white/95 backdrop-blur-md overflow-hidden rounded-xl shadow-2xl">
+      <CopilotChat
+        className="h-[600px]"
+        instructions={`You are an AI consultant for Instabids' "Agents Made Easy" service. Your goal is to:
+        
+        1. Start by understanding their business (use updateBusinessInfo action)
+        2. Discover specific pain points through conversation (use addPainPoint for each one)
+        3. After understanding 3-4 pain points, propose a complete agent system (use proposeAgentSystem)
+        
+        Be consultative and thorough. Ask follow-up questions. Focus on ROI and practical implementation.
+        
+        Start with: "Hi! I'm your AI transformation consultant. Let's design a custom AI agent system for your business. What industry are you in?"`}
+        labels={{
+          title: "AI Transformation Consultant",
+          initial: "Let's explore how AI agents can transform your business..."
+        }}
+      />
+    </div>
   );
 };
 

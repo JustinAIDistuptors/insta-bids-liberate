@@ -8,18 +8,6 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    proxy: {
-      '/api/copilot/sales-bot': {
-        target: 'https://instabids-sales-bot-api-67gkc.ondigitalocean.app',
-        changeOrigin: true,
-        rewrite: (path) => '/chat',
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
-            proxyReq.setHeader('Content-Type', 'application/json');
-          });
-        }
-      }
-    }
   },
   plugins: [
     react(),

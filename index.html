@@ -1,62 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>InstaBids: Unleashing the American Economy</title>
     <meta name="description" content="InstaBids is liberating the American economy from corporate middlemen, empowering contractors and homeowners to connect directly." />
     <meta name="author" content="InstaBids" />
 
+    <!-- Open Graph Meta -->
     <meta property="og:title" content="InstaBids: Unleashing the American Economy" />
-    <meta property="og:description" content="Cutting out corporate middlemen and returning the American Dream to local communities" />
+    <meta property="og:description" content="Cutting out corporate middlemen and returning the American Dream to local communities." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://www.instabids.ai/" />
+    <meta property="og:image" content="https://www.instabids.ai/og-robot.png" />
 
+    <!-- Twitter Meta -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@instabids" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <meta name="twitter:title" content="InstaBids: Unleashing the American Economy" />
+    <meta name="twitter:description" content="Empowering contractors and homeowners by removing corporate overhead." />
+    <meta name="twitter:image" content="https://www.instabids.ai/og-robot.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Styles -->
     <style>
-      /* Animation styles for scroll animations */
       .animate-on-scroll {
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.8s ease, transform 0.8s ease;
       }
-      
       .animate-on-scroll.is-visible {
         opacity: 1;
         transform: translateY(0);
       }
-      
-      /* Staggered animation for children */
       .stagger-children > * {
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.5s ease, transform 0.5s ease;
       }
-      
       .stagger-children.is-visible > *:nth-child(1) { transition-delay: 0.1s; }
       .stagger-children.is-visible > *:nth-child(2) { transition-delay: 0.2s; }
       .stagger-children.is-visible > *:nth-child(3) { transition-delay: 0.3s; }
       .stagger-children.is-visible > *:nth-child(4) { transition-delay: 0.4s; }
       .stagger-children.is-visible > *:nth-child(5) { transition-delay: 0.5s; }
-      
       .stagger-children.is-visible > * {
         opacity: 1;
         transform: translateY(0);
       }
-      
-      /* Hover animation for cards */
       .hover-lift {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
-      
       .hover-lift:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
@@ -66,7 +67,7 @@
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <!-- DO NOT REMOVE THIS SCRIPT TAG -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -29,25 +29,8 @@ const SalesBot = () => {
     window.location.reload(); // Refresh to reset the chat
   };
 
-  const systemPrompt = `You are an expert sales assistant for InstaBids, a platform that connects homeowners with contractors for home improvement projects. Your goal is to guide potential customers through the sales process, understand their needs, and help them get started with InstaBids.
-
-Your conversation should follow this flow:
-1. Warm greeting and ask about their home improvement needs
-2. Qualify their project (type, timeline, budget range)
-3. Explain how InstaBids can help them
-4. Address any concerns or objections
-5. Guide them to take the next step (create account, post project, etc.)
-
-Be conversational, helpful, and focus on the value InstaBids provides. Use the customer's name when provided, and personalize your responses based on their specific needs.
-
-Key benefits to emphasize:
-- Get multiple competitive bids from vetted contractors
-- Save time and money
-- Quality guarantee on all work
-- Simple, transparent process
-- Free to post projects`;
-
-  const runtimeUrl = import.meta.env.VITE_COPILOT_RUNTIME_URL || "/api/copilot/sales-bot";
+  // The runtime URL - in production this will be your deployed URL
+  const runtimeUrl = "/api/copilot/sales-bot";
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -92,7 +75,6 @@ Key benefits to emphasize:
         >
           <div className="h-[calc(100vh-120px)] bg-white rounded-lg shadow-sm overflow-hidden">
             <CopilotChat
-              instructions={systemPrompt}
               labels={{
                 title: "InstaBids Sales Assistant",
                 initial: "Hi! I'm here to help you get started with InstaBids. What kind of home improvement project are you planning?",

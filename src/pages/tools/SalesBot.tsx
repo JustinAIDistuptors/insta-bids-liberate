@@ -1,36 +1,107 @@
-import { CopilotKit } from "@copilotkit/react-core";
-import { CopilotChat } from "@copilotkit/react-ui";
-import "@copilotkit/react-ui/styles.css";
-import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, RefreshCw } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Home, MessageSquare, RefreshCw, Send } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
 
 const SalesBot = () => {
   const navigate = useNavigate();
   const [threadId, setThreadId] = useState<string>("");
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const SALES_BOT_API = import.meta.env.VITE_SALES_BOT_API_URL || "https://instabids-sales-bot-api-67gkc.ondigitalocean.app";
 
   // Generate or retrieve thread ID
   useEffect(() => {
     const storedThreadId = localStorage.getItem("salesbot-thread-id");
     if (storedThreadId) {
       setThreadId(storedThreadId);
+      // Load stored messages
+      const storedMessages = localStorage.getItem(`salesbot-messages-${storedThreadId}`);
+      if (storedMessages) {
+        setMessages(JSON.parse(storedMessages));
+      }
     } else {
       const newThreadId = `thread-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       localStorage.setItem("salesbot-thread-id", newThreadId);
       setThreadId(newThreadId);
     }
+
+    // Add initial message
+    if (messages.length === 0) {
+      setMessages([{
+        role: "assistant",
+        content: "Hi! I'm here to help you get started with InstaBids. What kind of home improvement project are you planning?"
+      }]);
+    }
   }, []);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (threadId && messages.length > 0) {
+      localStorage.setItem(`salesbot-messages-${threadId}`, JSON.stringify(messages));
+    }
+  }, [messages, threadId]);
 
   const handleNewConversation = () => {
     const newThreadId = `thread-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     localStorage.setItem("salesbot-thread-id", newThreadId);
     setThreadId(newThreadId);
-    window.location.reload(); // Refresh to reset the chat
+    setMessages([{
+      role: "assistant",
+      content: "Hi! I'm here to help you get started with InstaBids. What kind of home improvement project are you planning?"
+    }]);
+    setInputValue("");
   };
 
-  // The runtime URL - in production this will be your deployed URL
-  const runtimeUrl = "/api/copilot/sales-bot";
+  const sendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage = inputValue.trim();
+    setInputValue("");
+    setIsLoading(true);
+
+    // Add user message
+    setMessages(prev => [...prev, { role: "user", content: userMessage }]);
+
+    try {
+      const response = await fetch(`${SALES_BOT_API}/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          thread_id: threadId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get response");
+      }
+
+      const data = await response.json();
+      const assistantMessage = data.response || data.message || data.content || "I'm sorry, I couldn't process that request.";
+
+      setMessages(prev => [...prev, { role: "assistant", content: assistantMessage }]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages(prev => [...prev, { 
+        role: "assistant", 
+        content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment." 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -67,23 +138,62 @@ const SalesBot = () => {
 
       {/* Chat Container */}
       <div className="flex-1 container mx-auto max-w-4xl p-4">
-        <CopilotKit
-          runtimeUrl={runtimeUrl}
-          headers={{
-            "X-Thread-Id": threadId,
-          }}
-        >
-          <div className="h-[calc(100vh-120px)] bg-white rounded-lg shadow-sm overflow-hidden">
-            <CopilotChat
-              labels={{
-                title: "InstaBids Sales Assistant",
-                initial: "Hi! I'm here to help you get started with InstaBids. What kind of home improvement project are you planning?",
+        <div className="h-[calc(100vh-120px)] bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
+          {/* Messages */}
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                      message.role === "user"
+                        ? "bg-primary text-white"
+                        : "bg-gray-100 text-gray-900"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-lg px-4 py-2">
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100" />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200" />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+
+          {/* Input */}
+          <div className="border-t p-4">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendMessage();
               }}
-              defaultOpen={true}
-              clickOutsideToClose={false}
-            />
+              className="flex gap-2"
+            >
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Type your message..."
+                disabled={isLoading}
+                className="flex-1"
+              />
+              <Button type="submit" disabled={isLoading || !inputValue.trim()}>
+                <Send className="w-4 h-4" />
+              </Button>
+            </form>
           </div>
-        </CopilotKit>
+        </div>
       </div>
     </div>
   );
